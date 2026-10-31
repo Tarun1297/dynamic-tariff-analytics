@@ -1,0 +1,19 @@
+[project]
+name = "dynamic-tariff-analytics"
+version = "0.1.0"
+description = "Did a German household save money on a dynamic electricity tariff? dlt, dbt, DuckDB and MetricFlow."
+requires-python = ">=3.12"
+dependencies = [
+    "dlt[duckdb]",
+    "entsoe-py",
+    "dbt-core",
+    "dbt-duckdb",
+    "dbt-metricflow",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "sqlfluff",
+]

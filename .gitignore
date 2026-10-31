@@ -1,0 +1,20 @@
+# Secrets: never commit
+.env
+
+# Data and the warehouse: rebuilt from code
+data/
+*.duckdb
+*.duckdb.wal
+
+# dbt build output
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/.user.yml
+logs/
+
+# Python
+__pycache__/
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
