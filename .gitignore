@@ -13,6 +13,9 @@ dbt/logs/
 dbt/.user.yml
 logs/
 
+# Personal scratch files: test scripts, scratch.sql
+scratch/
+
 # Python
 __pycache__/
 *.egg-info/
