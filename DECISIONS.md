@@ -51,3 +51,36 @@ What I chose at each step, why, and what goes wrong without it.
 - Without it: I can only undo one big commit all at once. A pull request per
   file costs a review for pieces that do not work alone. `main` only receives
   complete phases that work.
+
+## Phase 2: a half-open interval for each month
+
+- Decision: the pipeline keeps a price only if `start <= t < end`, where
+  `start` and `end` are the first days of two months in German time.
+- Why: the ENTSO-E client also returns the price at `end`, which is 00:00 on
+  the first day of the next month. With the filter, each month loads exactly
+  its own rows, and two months never share a row.
+- Without it: each month brings one row of the next month. With append,
+  that gives 20 duplicate rows. With merge, the last month still adds
+  2026-10-01 00:00, which is outside the period.
+
+## Phase 2: the dlt state and the merge as two guards
+
+- Decision: the dlt state lists the loaded months, and the table uses merge on
+  `interval_start_utc`.
+- Why: the state makes a rerun cheap, because it skips loaded months and makes
+  no API calls. The merge makes a rerun safe, because it replaces a row with
+  the same timestamp instead of adding it again.
+- Without the state: every run downloads all 21 months again. The table stays
+  correct, but the run is slow and uses the API quota.
+- Without the merge: if a month loads again, for example after I reset the
+  state, every row of that month is in the table twice.
+
+## Phase 2: raw keeps UTC and EUR per MWh
+
+- Decision: `raw.day_ahead_prices` stores the timestamp in UTC and the price
+  in EUR per MWh, as ENTSO-E sends them.
+- Why: raw is an exact copy of the source, and staging does the conversions.
+  If a conversion has a bug, I fix staging and rebuild from raw without new
+  API calls. UTC also has no clock change, so every timestamp is unique.
+- Without it: on 26 October 2025, the hour from 02:00 to 03:00 German time
+  happened twice. In German time, those two hours have the same timestamps.
