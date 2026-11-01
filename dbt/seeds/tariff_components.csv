@@ -1,0 +1,10 @@
+component,valid_from,valid_until,value,unit,source_url,note
+electricity_tax,2025-01-01,,2.05,ct_per_kwh,https://www.gesetze-im-internet.de/stromstg/__3.html,20.50 EUR per MWh; no household rate change in 2026
+vat,2025-01-01,,19,percent,https://www.gesetze-im-internet.de/ustg_1980/__12.html,applies to the whole net bill
+kwkg_levy,2025-01-01,2025-12-31,0.277,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/KWKG/KWKG-Umlage/KWKG-Umlagen-%C3%9Cbersicht/KWKG-Umlage-2025,non-privileged consumption
+kwkg_levy,2026-01-01,,0.446,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/KWKG/KWKG-Umlage/KWKG-Umlagen-%C3%9Cbersicht/KWKG-Umlage-2026,non-privileged consumption
+offshore_grid_levy,2025-01-01,2025-12-31,0.816,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/Sonstige-Umlagen/Offshore-Netzumlage/Offshore-Netzumlagen-%C3%9Cbersicht/Offshore-Netzumlage-2025,non-privileged consumption
+offshore_grid_levy,2026-01-01,,0.941,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/Sonstige-Umlagen/Offshore-Netzumlage/Offshore-Netzumlagen-%C3%9Cbersicht/Offshore-Netzumlage-2026,non-privileged consumption
+special_grid_use_surcharge,2025-01-01,2025-12-31,1.558,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/Sonstige-Umlagen/Aufschlag-f%C3%BCr-besondere-Netznutzung-19-StromNEV-Umlage/%C3%9Cbersicht-Aufschlag-f%C3%BCr-besondere-Netznutzung/Aufschlag-f%C3%BCr-besondere-Netznutzung-2025,former 19 StromNEV levy; group A' (first 1 GWh per year)
+special_grid_use_surcharge,2026-01-01,,1.559,ct_per_kwh,https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/Sonstige-Umlagen/Aufschlag-f%C3%BCr-besondere-Netznutzung-19-StromNEV-Umlage/%C3%9Cbersicht-Aufschlag-f%C3%BCr-besondere-Netznutzung/Aufschlag-f%C3%BCr-besondere-Netznutzung-2026,former 19 StromNEV levy; group A' (first 1 GWh per year)
+concession_fee,2025-01-01,,2.39,ct_per_kwh,https://www.gesetze-im-internet.de/kav/__2.html,Hamburg household rate; confirmed on the Hamburger Energienetze price sheets 2025 and 2026
