@@ -119,3 +119,59 @@ same reason, so a reviewer sees it next to the number.
 - Unit: the tariffs are gross because customers see gross prices. The other
   seeds are net, so the models divide the tariff values by 1.19 before they
   add them to net components.
+
+## Phase 3: reference data as seeds in Git
+
+- Decision: taxes, grid fees, the load profile, holidays and tariffs are CSV
+  seeds in `dbt/seeds/`. The day-ahead prices come through dlt.
+- Why: reference data is small, changes once a year at most, and comes from
+  documents that a person reads. In Git, a pull request shows each changed
+  value with its source link.
+- Without it: a script can change a fee without anyone noticing, and no
+  reviewer can check a value against its price sheet.
+
+## Phase 3: valid_from and valid_until in every seed with history
+
+- Decision: each row says the first and the last day it applies. An empty
+  `valid_until` means the row still applies.
+- Why: a reviewer sees each period without comparing rows. The test
+  `assert_no_overlapping_validity` fails if two rows of one item overlap.
+- Without it: a new row with a forgotten end date doubles a fee on some days,
+  and no test finds it.
+
+## Phase 3: grid fees per year, 2027 as provisional
+
+- Decision: Hamburg's grid fees have one set of rows per year. The 2027 rows
+  have `status = provisional` and are guidance only.
+- Why: the energy price fell from 12.11 to 9.70 ct/kWh in 2026. One value for
+  both years gives a wrong saving in every month.
+- Limit: the 2027 values are a forecast by the operator, from October 2026.
+
+## Phase 3: section 14a modules kept, but not used in version 1
+
+- Decision: the Module 1, 2 and 3 rows are in `grid_fees.csv`. Version 1 uses
+  only the base fee and the normal energy price.
+- Why: the modules apply only to a controllable device, such as a wallbox, and
+  Module 3 also needs a smart meter. A normal household has neither.
+- Use: Phase 12 adds an EV, which can charge in the low window from 00:30 to
+  07:00.
+
+## Phase 3: the load profile is stored without dynamization
+
+- Decision: `bdew_load_profiles.csv` holds the static H25 values exactly as
+  BDEW publishes them, in long format. A model applies the daily factor later.
+- Why: raw data stays an exact copy of the source. The factor raises January
+  by 25 % and lowers July by 21 %, so the model must apply it before it
+  computes any cost.
+- Check: rolled out over 2025 with the factor, the profile sums to 1,000,415
+  kWh. That is 0.04 % from the 1 million kWh in the BDEW file.
+- Without the factor: the average 2025 day-ahead price weighted by the profile
+  drops from 9.30 to 9.04 ct/kWh, so the dynamic tariff looks too cheap.
+
+## Phase 3: a holiday seed for Hamburg
+
+- Decision: `public_holidays.csv` lists Hamburg's 10 public holidays for 2025
+  to 2027.
+- Why: BDEW uses the holiday calendar of each federal state. Hamburg has one
+  more holiday than the national list, Reformation Day on 31 October. On a
+  holiday, the profile uses the Sunday curve.
