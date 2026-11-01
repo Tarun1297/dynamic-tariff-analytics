@@ -1,0 +1,82 @@
+version: 2
+
+seeds:
+  - name: tariff_components
+    description: >
+      Taxes and levies per kWh, and VAT in percent. Real values from official
+      sources. Grain: one row per component and valid-from date.
+    columns:
+      - name: component
+        data_tests: [not_null]
+      - name: valid_from
+        data_tests: [not_null]
+      - name: value
+        data_tests: [not_null]
+      - name: unit
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ct_per_kwh, percent]
+
+  - name: grid_fees
+    description: >
+      Hamburger Energienetze grid fees for households in low voltage. Real
+      values from the operator's price sheets; 2027 is provisional. Grain: one
+      row per item, valid-from date and time window.
+    columns:
+      - name: item
+        data_tests: [not_null]
+      - name: valid_from
+        data_tests: [not_null]
+      - name: value
+        data_tests: [not_null]
+      - name: unit
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ct_per_kwh, eur_per_year]
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [final, provisional]
+
+  - name: bdew_load_profiles
+    description: >
+      BDEW household profile H25 in kWh per quarter-hour for 1 million kWh per
+      year, without dynamization. Grain: one row per profile, month, day type
+      and quarter-hour.
+    columns:
+      - name: month
+        data_tests: [not_null]
+      - name: day_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [WT, SA, FT]
+      - name: kwh_per_1m_kwh_year
+        data_tests: [not_null]
+
+  - name: public_holidays
+    description: >
+      Public holidays in Hamburg, 2025 to 2027. Grain: one row per date.
+    columns:
+      - name: holiday_date
+        data_tests: [unique, not_null]
+
+  - name: tariffs
+    description: >
+      The fixed and dynamic tariff. Own assumptions, gross, with a reason and a
+      limit in each row. Grain: one row per tariff, item and valid-from date.
+    columns:
+      - name: tariff
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [fixed, dynamic]
+      - name: item
+        data_tests: [not_null]
+      - name: value
+        data_tests: [not_null]
+      - name: reason
+        data_tests: [not_null]
