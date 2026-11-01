@@ -84,3 +84,38 @@ What I chose at each step, why, and what goes wrong without it.
   API calls. UTC also has no clock change, so every timestamp is unique.
 - Without it: on 26 October 2025, the hour from 02:00 to 03:00 German time
   happened twice. In German time, those two hours have the same timestamps.
+
+## Phase 3: tariff assumptions
+
+These four values are my own assumptions. Each row of `tariffs.csv` holds the
+same reason, so a reviewer sees it next to the number.
+
+- Fixed tariff, 32.0 ct/kWh gross: the middle of the cheapest new-customer
+  offers in Hamburg in October 2026. Comparison sites list them at about 27
+  to 35 ct/kWh. The price includes energy, grid fee, levies and VAT.
+- Fixed tariff, 12.00 EUR per month gross: the typical base fee of those
+  offers. It includes the grid base fee and the meter.
+- Dynamic tariff, markup of 2.0 ct/kWh gross on the day-ahead price: dynamic
+  offers add between 0 and 2.5 ct/kWh. I chose a value in the upper half, so
+  the result does not depend on the cheapest offer on the market.
+- Dynamic tariff, 6.00 EUR per month gross: dynamic offers charge about 4.50
+  to 9 EUR per month. The grid base fee of 72 EUR per year net comes on top.
+
+- Why one fixed price for the whole period: fixed contracts usually guarantee
+  the price for 12 to 24 months. I only have prices from October 2026.
+- Limit: in early 2025 the grid fee was higher, so a fixed contract signed then
+  probably cost more than 32.0 ct/kWh. The comparison therefore slightly
+  favours the fixed tariff. If the dynamic tariff still saves money, the
+  result holds.
+- Limit: a dynamic tariff needs a smart meter. Its fee is not in the model yet.
+- Limit: the values come from comparison sites, not from signed contracts.
+  The sites differ by several ct/kWh and change their lists daily.
+- Limit: the base fees are close. The fixed tariff charges 12.00 EUR per
+  month. The dynamic tariff charges 6.00 EUR plus the grid base fee of 7.14 EUR
+  gross, which is 13.14 EUR per month. So the energy price decides the result.
+- Limit: the markup and the dynamic base fee are typical values, not one
+  provider's terms. A real provider can be cheaper or more expensive.
+- Limit: the provider names stay out of the repo, as the project rules require.
+- Unit: the tariffs are gross because customers see gross prices. The other
+  seeds are net, so the models divide the tariff values by 1.19 before they
+  add them to net components.
