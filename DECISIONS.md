@@ -39,7 +39,7 @@ What I chose at each step, why, and what goes wrong without it.
 - Why: dbt-duckdb and dbt-metricflow are built for v1, and most teams still
   run v1.
 - Without it: I spend time on adapter and MetricFlow support instead of on
-  models. I will look at v2 again after Phase 11.
+  models. I will look at v2 again once CI is in place.
 
 ## Phase 1: one branch and one pull request per phase
 
@@ -153,7 +153,7 @@ same reason, so a reviewer sees it next to the number.
   only the base fee and the normal energy price.
 - Why: the modules apply only to a controllable device, such as a wallbox, and
   Module 3 also needs a smart meter. A normal household has neither.
-- Use: Phase 12 adds an EV, which can charge in the low window from 00:30 to
+- Use: a planned EV extension, where the EV can charge in the low window from 00:30 to
   07:00.
 
 ## Phase 3: the load profile is stored without dynamization
