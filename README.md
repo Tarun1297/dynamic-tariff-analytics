@@ -4,8 +4,8 @@ Did a normal household in Hamburg save money on a dynamic electricity tariff
 compared with a fixed tariff, month by month? And what does that mean for a
 provider's revenue and active contracts?
 
-The full README follows in Phase 11. This file starts with the limits, so they
-are recorded when each assumption is made.
+The project is in progress. This file starts with the limits, so they are
+recorded when each assumption is made.
 
 ## Limitations
 
@@ -60,7 +60,7 @@ value means that the dynamic tariff costs more, in gross ct/kWh.
 - The fee for the smart meter that a dynamic tariff needs is not modelled.
   It counts against the dynamic tariff.
 - The section 14a grid fee modules are not applied, because a normal
-  household has no controllable device. They apply to the EV in Phase 12.
+  household has no controllable device. They apply to a planned extension with an EV.
 - The analysis covers one city, Hamburg, with its grid fees and its
   concession fee. Other cities have different grid fees.
 - The 2027 grid fees are the operator's provisional values, used only as

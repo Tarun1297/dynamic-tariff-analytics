@@ -21,3 +21,7 @@ __pycache__/
 *.egg-info/
 .ruff_cache/
 .pytest_cache/
+
+# Personal notes and plan, kept out of the public repo
+CLAUDE.local.md
+PLAN.md
